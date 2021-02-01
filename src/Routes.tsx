@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import Home from 'pages/Home';
-import Login from 'pages/Login';
+import SingIn from 'pages/SingIn';
 import Layout from 'components/common/Layout';
 
 const Routes: React.FC = () => (
@@ -11,9 +11,11 @@ const Routes: React.FC = () => (
         <Route exact path="/">
           <Home />
         </Route>
-        <Route path="/login">
-          <Login />
+        <Route path="/signin">
+          <SingIn />
         </Route>
+        <Route path="/signup"></Route>
+        <Route path="/findpassword"></Route>
       </Switch>
     </Layout>
   </Router>

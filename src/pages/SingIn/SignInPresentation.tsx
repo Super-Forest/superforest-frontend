@@ -13,38 +13,38 @@ mx-auto
 const formwrapper = tw`
 bg-white
 shadow-lg
-w-5/12
+w-4/12
 rounded
 mx-auto
 p-24
 `;
 
 const title = tw`
-text-5xl
 font-bold
 text-left
 `;
 
 const img = css`
-  width: 350px;
-  height: 350px;
+  width: 250px;
+  height: 250px;
   border-radius: 50%;
   background-color: #f9f9f9;
   background-image: url('./images/Peppa.png');
-  background-position: center -20px;
+  background-size: 300px auto;
+  background-position: -30px;
   margin: 0 auto;
 `;
 
-const LoginPresentation = () => {
+const SignInPresentation = () => {
   return (
     <div css={container}>
       <div css={formwrapper}>
+        <h1 css={title}>Sing In</h1>
         <div css={img}></div>
-        <p css={title}>Sing In</p>
         <Form />
       </div>
     </div>
   );
 };
 
-export default LoginPresentation;
+export default SignInPresentation;
