@@ -10,6 +10,7 @@ const container = css`
 `;
 const main = css`
   flex: 1;
+  background-color: #f6f5f5;
 `;
 
 const Layout: React.FC = ({ children }) => {
