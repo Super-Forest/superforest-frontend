@@ -7,10 +7,10 @@ import { css } from '@emotion/react';
 const container = tw`
 container
 mx-auto
-
+pt-20
 `;
 
-const formwrapper = tw`
+const formWrapper = tw`
 bg-white
 shadow-lg
 w-4/12
@@ -38,7 +38,7 @@ const img = css`
 const SignInPresentation = () => {
   return (
     <div css={container}>
-      <div css={formwrapper}>
+      <div css={formWrapper}>
         <h1 css={title}>Sing In</h1>
         <div css={img}></div>
         <Form />

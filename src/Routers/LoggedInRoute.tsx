@@ -8,14 +8,9 @@ const Routes: React.FC = () => (
   <Router>
     <Layout>
       <Switch>
-        <Route exact path="/">
+        <Route path="/">
           <Home />
         </Route>
-        <Route path="/signin">
-          <SingIn />
-        </Route>
-        <Route path="/signup"></Route>
-        <Route path="/findpassword"></Route>
       </Switch>
     </Layout>
   </Router>
