@@ -1,8 +1,7 @@
 import React from 'react';
-import Form from 'components/common/Form';
-
 import tw from 'twin.macro';
 import { css } from '@emotion/react';
+import Form from 'components/loggedOut/Form';
 
 const container = tw`
 container
@@ -21,7 +20,7 @@ p-24
 
 const title = tw`
 font-bold
-text-left
+text-center
 `;
 
 const img = css`
@@ -39,7 +38,7 @@ const SignInPresentation = () => {
   return (
     <div css={container}>
       <div css={formWrapper}>
-        <h1 css={title}>Sing In</h1>
+        <h1 css={title}>Sign In</h1>
         <div css={img}></div>
         <Form />
       </div>
