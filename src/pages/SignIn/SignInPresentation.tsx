@@ -20,15 +20,17 @@ const formWrapper = tw`
 `;
 
 const title = tw`
+  text-6xl
   font-bold
   text-center
+  mb-14
 `;
 
 const img = css`
   display: flex;
   align-items: center;
-  width: 200px;
-  height: 200px;
+  width: 220px;
+  height: 220px;
   border-radius: 50%;
   background-color: #f9f9f9;
   margin: 0 auto;
@@ -40,7 +42,7 @@ const SignInPresentation = () => {
       <div css={formWrapper}>
         <h1 css={title}>Sign In</h1>
         <div css={img}>
-          <img src={'./images/Peppa.png'} />
+          <img src={'/images/Peppa.png'} />
         </div>
         <Form />
       </div>
