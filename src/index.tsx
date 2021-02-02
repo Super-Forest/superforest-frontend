@@ -5,7 +5,6 @@ import { client } from 'apollo';
 import { Global } from '@emotion/react';
 
 import App from './App';
-import Routes from 'Routes';
 import global from 'styles/global';
 
 import reportWebVitals from './reportWebVitals';
@@ -14,9 +13,7 @@ ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
       <Global styles={global} />
-      <App>
-        <Routes />
-      </App>
+      <App />
     </ApolloProvider>
   </React.StrictMode>,
   document.getElementById('root'),

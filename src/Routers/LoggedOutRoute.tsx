@@ -1,15 +1,17 @@
 import React from 'react';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
-import Home from 'pages/Home';
-import Layout from 'components/common/Layout';
+import SignIn from 'pages/SignIn';
+import Layout from 'components/loggedOut/layout';
 
 const Routes: React.FC = () => (
   <Router>
     <Layout>
       <Switch>
-        <Route exact path="/">
-          <Home />
+        <Route path="/">
+          <SignIn />
         </Route>
+        <Route path="/signup"></Route>
+        <Route path="/findpassword"></Route>
       </Switch>
     </Layout>
   </Router>

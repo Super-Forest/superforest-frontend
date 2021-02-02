@@ -1,7 +1,7 @@
 import React from 'react';
 import { css } from '@emotion/react';
-import Header from './Header';
-import Footer from './Footer';
+import Header from '../common/Header';
+import Footer from '../common/Footer';
 
 const container = css`
   display: flex;
@@ -10,6 +10,7 @@ const container = css`
 `;
 const main = css`
   flex: 1;
+  background-color: #f6f5f5;
 `;
 
 const Layout: React.FC = ({ children }) => {
