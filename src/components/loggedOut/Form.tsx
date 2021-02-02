@@ -7,6 +7,7 @@ import { checkEmailValid } from 'lib/utils';
 const form = css`
   display: flex;
   flex-direction: column;
+  margin-top: 10px;
 `;
 
 const SignInButton = tw`
@@ -16,6 +17,7 @@ const SignInButton = tw`
   rounded-lg
   my-7
   font-semibold
+  hover:bg-gray-200
 `;
 
 const label = tw`
