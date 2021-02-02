@@ -6,16 +6,17 @@ import Form from 'components/loggedOut/Form';
 const container = tw`
 container
 mx-auto
-pt-20
+pt-80
 `;
 
 const formWrapper = tw`
+p-24
+mx-auto
+w-11/12
 bg-white
 shadow-lg
-w-4/12
 rounded
-mx-auto
-p-24
+md:w-3/6
 `;
 
 const title = tw`
@@ -24,13 +25,12 @@ text-center
 `;
 
 const img = css`
-  width: 250px;
-  height: 250px;
+  display: flex;
+  align-items: center;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
   background-color: #f9f9f9;
-  background-image: url('./images/Peppa.png');
-  background-size: 300px auto;
-  background-position: -30px;
   margin: 0 auto;
 `;
 
@@ -39,7 +39,9 @@ const SignInPresentation = () => {
     <div css={container}>
       <div css={formWrapper}>
         <h1 css={title}>Sign In</h1>
-        <div css={img}></div>
+        <div css={img}>
+          <img src={'./images/Peppa.png'} />
+        </div>
         <Form />
       </div>
     </div>
