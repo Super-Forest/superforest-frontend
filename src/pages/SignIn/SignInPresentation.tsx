@@ -4,24 +4,24 @@ import { css } from '@emotion/react';
 import Form from 'components/loggedOut/Form';
 
 const container = tw`
-container
-mx-auto
-pt-80
+  container
+  mx-auto
+  pt-80
 `;
 
 const formWrapper = tw`
-p-24
-mx-auto
-w-11/12
-bg-white
-shadow-lg
-rounded
-md:w-3/6
+  p-24
+  mx-auto
+  w-11/12
+  bg-white
+  shadow-lg
+  rounded
+  md:w-3/7
 `;
 
 const title = tw`
-font-bold
-text-center
+  font-bold
+  text-center
 `;
 
 const img = css`
