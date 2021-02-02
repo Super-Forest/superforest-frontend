@@ -1,8 +1,11 @@
-import React, { ChangeEvent, MouseEvent, useState } from 'react';
+import React, { ChangeEvent, FormEvent, MouseEvent, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { css } from '@emotion/react';
 import tw from 'twin.macro';
 import { checkEmailValid } from 'lib/utils';
+import FormInput from 'components/common/FormInput';
+import FormLabel from 'components/common/FormLabel';
+import Button from 'components/common/Button';
 
 const form = css`
   display: flex;
@@ -71,35 +74,30 @@ const Form: React.FC = () => {
     } = e;
     setPassword(value);
   };
-  const handleSignIn = (e: MouseEvent<HTMLButtonElement>) => {
+  const handleSignIn = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
+
   return (
-    <form css={form}>
-      <label css={label} htmlFor="email">
-        Email
-      </label>
-      <input
+    <form css={form} onSubmit={handleSignIn}>
+      <FormLabel css={label} htmlFor={'email'} text={'Email'} />
+      <FormInput
         css={input}
-        id="email"
+        name={'email'}
         onChange={handleEmailOnChange}
         placeholder="email@supertree.co"
         type="email"
         value={email}
       />
-      <label css={label} htmlFor="password">
-        Password
-      </label>
-      <input
+      <FormLabel css={label} htmlFor={'password'} text={'Password'} />
+      <FormInput
         css={input}
-        id="password"
+        name={'passowrd'}
         onChange={handlePasswordOnChange}
         type="password"
         value={password}
       />
-      <button css={SignInButton} onClick={handleSignIn} type="submit">
-        Sign In
-      </button>
+      <Button css={SignInButton} text={'Sign In'} type="submit" />
       <div css={link}>
         <Link to="/findpassword">Forgot password?</Link>
         <Link to="/signup">Create Account</Link>
