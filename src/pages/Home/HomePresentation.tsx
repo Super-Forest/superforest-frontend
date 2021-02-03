@@ -58,6 +58,7 @@ const buttonStyle = css`
 const formContainer = css`
   display: flex;
   flex-direction: column;
+  padding: 2rem;
   background-color: white;
 `;
 
@@ -76,10 +77,13 @@ const buttonContainer = css`
 `;
 
 const buttonGroup = css`
+  display: flex;
   & .image_button,
   .emoji_button {
+    display: flex;
+
     & svg {
-      padding: 5px;
+      font-size: 2.5rem;
     }
   }
 `;
