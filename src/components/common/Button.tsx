@@ -1,6 +1,7 @@
 import React, { MouseEventHandler } from 'react';
 
 interface Prop {
+  children?: JSX.Element | JSX.Element[];
   className?: string;
   css?: any;
   text?: string;
@@ -9,10 +10,10 @@ interface Prop {
   disabled?: boolean;
 }
 
-const Button = ({ className, css, disabled, onClick, type, text }: Prop) => {
+const Button = ({ className, children, css, disabled, onClick, type, text }: Prop) => {
   return (
     <button className={className} css={css} disabled={disabled} onClick={onClick} type={type}>
-      {text}
+      {children ? children : text}
     </button>
   );
 };
