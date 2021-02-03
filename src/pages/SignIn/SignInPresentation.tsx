@@ -2,6 +2,7 @@ import React from 'react';
 import tw from 'twin.macro';
 import { css } from '@emotion/react';
 import Form from 'components/loggedOut/Form';
+import Img from 'components/common/Img';
 
 const container = tw`
   container
@@ -26,7 +27,7 @@ const title = tw`
   mb-14
 `;
 
-const img = css`
+const imgWrapper = css`
   display: flex;
   align-items: center;
   width: 220px;
@@ -41,8 +42,8 @@ const SignInPresentation = () => {
     <div css={container}>
       <div css={formWrapper}>
         <h1 css={title}>Sign In</h1>
-        <div css={img}>
-          <img src={'/images/Peppa.png'} />
+        <div css={imgWrapper}>
+          <Img name={'Peppa.png'} />
         </div>
         <Form />
       </div>
