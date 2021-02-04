@@ -6,6 +6,7 @@ import { checkEmailValid } from 'lib/utils';
 import FormInput from 'components/common/FormInput';
 import FormLabel from 'components/common/FormLabel';
 import Button from 'components/common/Button';
+import FormStyle from 'components/common/FormStyle';
 
 const form = css`
   display: flex;
