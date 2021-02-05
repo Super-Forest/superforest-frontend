@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FormEventHandler } from 'react';
 import tw from 'twin.macro';
 import { css } from '@emotion/react';
 import { BiHappy, BiImageAdd } from 'react-icons/bi';
@@ -6,6 +6,10 @@ import { BiHappy, BiImageAdd } from 'react-icons/bi';
 import Button from 'components/common/Button';
 import Form from 'components/common/Form';
 import FormTextArea from 'components/common/FormTextArea';
+
+interface Prop {
+  handleSubmit: FormEventHandler<HTMLFormElement>;
+}
 
 const aside = css`
   display: flex;
@@ -88,7 +92,7 @@ const buttonGroup = css`
   }
 `;
 
-const HomePresentation = () => {
+const HomePresentation = ({ handleSubmit }: Prop) => {
   return (
     <div css={tw`flex min-h-full`}>
       <aside css={aside}>
