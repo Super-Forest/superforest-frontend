@@ -14,7 +14,7 @@ const WelcomImg = ({ name }: WelcomImg) => {
     height: 220px;
     border-radius: 50%;
     background-color: #f9f9f9;
-    margin: 0 auto;
+    margin: 8px auto;
   `;
 
   return (
