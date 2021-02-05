@@ -2,7 +2,7 @@ import React from 'react';
 import tw from 'twin.macro';
 
 const headerStyle = tw`
-  h-20
+  h-24
   bg-green-100
 `;
 

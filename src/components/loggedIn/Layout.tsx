@@ -1,7 +1,6 @@
 import React from 'react';
 import { css } from '@emotion/react';
 import Header from '../common/Header';
-import Footer from '../common/Footer';
 
 const container = css`
   display: flex;
@@ -18,7 +17,6 @@ const Layout: React.FC = ({ children }) => {
     <div css={container}>
       <Header />
       <main css={main}>{children}</main>
-      <Footer />
     </div>
   );
 };

@@ -2,7 +2,10 @@ import React from 'react';
 import HomePresentation from './HomePresentation';
 
 const HomeContainer = () => {
-  return <HomePresentation />;
+  const handleSubmit = () => {
+    console.log('submit');
+  };
+  return <HomePresentation handleSubmit={handleSubmit} />;
 };
 
 export default HomeContainer;
