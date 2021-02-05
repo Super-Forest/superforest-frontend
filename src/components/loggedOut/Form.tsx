@@ -6,20 +6,13 @@ import { checkEmailValid } from 'lib/utils';
 import FormInput from 'components/common/FormInput';
 import FormLabel from 'components/common/FormLabel';
 import Button from 'components/common/Button';
+import WelcomTitle from 'components/common/WelcomTitle';
+import WelcomImg from 'components/common/WelcomImg';
 
 const form = css`
   display: flex;
   flex-direction: column;
-`;
-
-const formWrapper = tw`
-  p-24
-  mx-auto
-  w-11/12
-  bg-white
-  shadow-lg
-  rounded
-  md:w-3/7
+  margin-top: 10px;
 `;
 
 const SignInButton = tw`
@@ -88,7 +81,9 @@ const Form: React.FC = () => {
   };
 
   return (
-    <div css={formWrapper}>
+    <div>
+      <WelcomTitle text={'Sign In'} />
+      <WelcomImg name={'Peppa.png'} />
       <form css={form} onSubmit={handleSignIn}>
         <FormLabel css={label} htmlFor={'email'} text={'Email'} />
         <FormInput

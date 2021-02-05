@@ -6,7 +6,6 @@ import FormInput from 'components/common/FormInput';
 import FormLabel from 'components/common/FormLabel';
 import Button from 'components/common/Button';
 import WelcomTitle from 'components/common/WelcomTitle';
-import FormStyle from 'components/common/FormStyle';
 import WelcomImg from 'components/common/WelcomImg';
 
 const form = css`

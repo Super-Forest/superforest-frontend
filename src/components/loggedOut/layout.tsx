@@ -5,7 +5,7 @@ import tw from 'twin.macro';
 const fullWidth = css`
   background-color: #f6f5f5;
   min-height: 100vh;
-  padding-top: 50px;
+  padding-top: 100px;
 `;
 
 const container = tw`
