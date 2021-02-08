@@ -1,4 +1,5 @@
 import React, { ChangeEvent, FormEvent, MouseEvent, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { css } from '@emotion/react';
 import tw from 'twin.macro';
 import { checkEmailValid } from 'lib/utils';
@@ -42,6 +43,10 @@ const input = tw`
   rounded-lg
 `;
 
+const link = tw`
+text-right
+`;
+
 const SignUpForm: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -73,7 +78,6 @@ const SignUpForm: React.FC = () => {
     <form css={form} onSubmit={handleSignIn}>
       <WelcomTitle text={'Sign Up'} />
       <WelcomImg name={'Mikey.png'} />
-
       <FormLabel css={label} htmlFor={'email'} text={'Email'} />
       <FormInput
         css={input}
@@ -100,6 +104,9 @@ const SignUpForm: React.FC = () => {
         value={password}
       />
       <Button css={SignUpButton} text={'Sign Up'} type="submit" />
+      <Link css={link} to="/signin">
+        SignIn
+      </Link>
     </form>
   );
 };
