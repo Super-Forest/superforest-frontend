@@ -12,10 +12,9 @@ import WelcomImg from 'components/common/WelcomImg';
 const form = css`
   display: flex;
   flex-direction: column;
-  margin-top: 10px;
 `;
 
-const SignInButton = tw`
+const SignUpButton = tw`
   h-16  
   bg-gray-100
   shadow
@@ -44,16 +43,11 @@ const input = tw`
   rounded-lg
 `;
 
-const link = css`
-  display: flex;
-  justify-content: space-between;
-  & a {
-    color: black;
-    text-decoration: underline;
-  }
+const link = tw`
+text-right
 `;
 
-const Form: React.FC = () => {
+const SignUpForm: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isEmailInValid, setIsEmailInValid] = useState(false);
@@ -81,35 +75,40 @@ const Form: React.FC = () => {
   };
 
   return (
-    <div>
-      <WelcomTitle text={'Sign In'} />
-      <WelcomImg name={'Peppa.png'} />
-      <form css={form} onSubmit={handleSignIn}>
-        <FormLabel css={label} htmlFor={'email'} text={'Email'} />
-        <FormInput
-          css={input}
-          name={'email'}
-          onChange={handleEmailOnChange}
-          placeholder="email@supertree.co"
-          type="email"
-          value={email}
-        />
-        <FormLabel css={label} htmlFor={'password'} text={'Password'} />
-        <FormInput
-          css={input}
-          name={'passowrd'}
-          onChange={handlePasswordOnChange}
-          type="password"
-          value={password}
-        />
-        <Button css={SignInButton} text={'Sign In'} type="submit" />
-        <div css={link}>
-          <Link to="/findpassword">Forgot password?</Link>
-          <Link to="/signup">Create Account</Link>
-        </div>
-      </form>
-    </div>
+    <form css={form} onSubmit={handleSignIn}>
+      <WelcomTitle text={'Sign Up'} />
+      <WelcomImg name={'Mikey.png'} />
+      <FormLabel css={label} htmlFor={'email'} text={'Email'} />
+      <FormInput
+        css={input}
+        name={'email'}
+        onChange={handleEmailOnChange}
+        placeholder="email@supertree.co"
+        type="email"
+        value={email}
+      />
+      <FormLabel css={label} htmlFor={'password'} text={'Password'} />
+      <FormInput
+        css={input}
+        name={'passowrd'}
+        onChange={handlePasswordOnChange}
+        type="password"
+        value={password}
+      />
+      <FormLabel css={label} htmlFor={'passwordcheck'} text={'password check'} />
+      <FormInput
+        css={input}
+        name={'passwordcheck'}
+        onChange={handlePasswordOnChange}
+        type="password"
+        value={password}
+      />
+      <Button css={SignUpButton} text={'Sign Up'} type="submit" />
+      <Link css={link} to="/signin">
+        SignIn
+      </Link>
+    </form>
   );
 };
 
-export default Form;
+export default SignUpForm;
