@@ -1,4 +1,4 @@
-import React, { ChangeEvent, ChangeEventHandler } from 'react';
+import React, { ChangeEvent, ChangeEventHandler, forwardRef } from 'react';
 
 interface Prop {
   className?: string;
@@ -11,28 +11,24 @@ interface Prop {
   name?: string;
 }
 
-const FormInput = ({
-  className,
-  css,
-  disabled,
-  name,
-  onChange,
-  placeholder,
-  type,
-  value,
-}: Prop) => {
-  return (
-    <input
-      className={className}
-      css={css}
-      disabled={disabled}
-      name={name}
-      onChange={onChange}
-      placeholder={placeholder}
-      type={type}
-      value={value}
-    />
-  );
-};
+const FormInput = forwardRef<HTMLInputElement, Prop>(
+  ({ className, css, disabled, name, onChange, placeholder, type, value }: Prop, ref) => {
+    return (
+      <input
+        className={className}
+        css={css}
+        disabled={disabled}
+        name={name}
+        onChange={onChange}
+        placeholder={placeholder}
+        ref={ref}
+        type={type}
+        value={value}
+      />
+    );
+  },
+);
+
+FormInput.displayName = 'FormInput';
 
 export default FormInput;
