@@ -106,7 +106,7 @@ const HomePresentation = ({ handleSubmit }: Prop) => {
       <section css={section}>
         <div css={formContainer}>
           <Form>
-            <FormTextArea css={formTextArea} value={'a'} />
+            <FormTextArea css={formTextArea} />
             <div css={buttonContainer}>
               <div className="button_group" css={buttonGroup}>
                 <Button className="image_button" type="button">
