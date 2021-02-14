@@ -11,7 +11,12 @@ const header = tw`
   flex
   items-center
   h-24
-  bg-green-100
+  m-0
+  bg-white
+  border-solid
+  border-0
+  border-b
+  border-gray-200
 `;
 
 const hamburgerButton = tw`
