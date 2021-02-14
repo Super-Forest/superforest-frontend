@@ -15,6 +15,7 @@ import FormFile from 'components/common/FormFile';
 interface Prop {
   handleSubmit: FormEventHandler<HTMLFormElement>;
   handleAddImage: MouseEventHandler<HTMLButtonElement>;
+  handleImagesChange: FormEventHandler<HTMLInputElement>;
   postImages: string[];
   fileRef: any;
 }
@@ -103,7 +104,13 @@ const submitButton = tw`
   text-2xl
 `;
 
-const HomePresentation = ({ handleSubmit, handleAddImage, postImages, fileRef }: Prop) => {
+const HomePresentation = ({
+  handleSubmit,
+  handleAddImage,
+  handleImagesChange,
+  postImages,
+  fileRef,
+}: Prop) => {
   return (
     <>
       <Tab />
@@ -120,7 +127,7 @@ const HomePresentation = ({ handleSubmit, handleAddImage, postImages, fileRef }:
           <div css={buttonWrapper}>
             <ButtonGroup css={buttonGroup}>
               <Tooltip message={'이미지 추가'}>
-                <FormFile css={fileInput} ref={fileRef}>
+                <FormFile css={fileInput} onChange={handleImagesChange} ref={fileRef}>
                   <Button onClick={handleAddImage} type="button">
                     <BiImageAdd />
                   </Button>
