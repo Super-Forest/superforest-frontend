@@ -72,7 +72,7 @@ const buttonGroup = css`
 `;
 
 const submitButton = tw`
-  px-8
+  px-14
   h-30px
   rounded-3xl
   bg-green-400
