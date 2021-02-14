@@ -8,6 +8,7 @@ import ButtonGroup from 'components/common/ButtonGroup';
 import Form from 'components/common/Form';
 import FormTextArea from 'components/common/FormTextArea';
 import Tab from 'components/loggedIn/Tab';
+import Tooltip from 'components/common/Tooltip';
 
 interface Prop {
   handleSubmit: FormEventHandler<HTMLFormElement>;
@@ -90,12 +91,16 @@ const HomePresentation = ({ handleSubmit }: Prop) => {
           <FormTextArea css={textArea} />
           <div css={buttonWrapper}>
             <ButtonGroup css={buttonGroup}>
-              <Button type="button">
-                <BiImageAdd />
-              </Button>
-              <Button type="button">
-                <FaVoteYea />
-              </Button>
+              <Tooltip message={'이미지 추가'}>
+                <Button type="button">
+                  <BiImageAdd />
+                </Button>
+              </Tooltip>
+              <Tooltip message={'투표 생성'}>
+                <Button type="button">
+                  <FaVoteYea />
+                </Button>
+              </Tooltip>
             </ButtonGroup>
             <Button css={submitButton} text={'데롱'} type="button" />
           </div>
