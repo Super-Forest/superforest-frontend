@@ -11,12 +11,14 @@ import Tab from 'components/loggedIn/Tab';
 import Tooltip from 'components/common/Tooltip';
 import Img from 'components/common/Img';
 import FormFile from 'components/common/FormFile';
+import { ImageInfo } from 'types/imageUpload';
+import { POST_IMAGES_MAX } from 'constant';
 
 interface Prop {
   handleSubmit: FormEventHandler<HTMLFormElement>;
   handleAddImage: MouseEventHandler<HTMLButtonElement>;
   handleImagesChange: FormEventHandler<HTMLInputElement>;
-  postImages: string[];
+  uploadImages: ImageInfo[];
   fileRef: any;
 }
 
@@ -31,8 +33,8 @@ const form = tw`
   flex
   flex-col
   items-center
-  p-10
-  pb-5
+  p-12
+  py-5
   mt-5
   w-full
   bg-white
@@ -50,6 +52,19 @@ const textArea = tw`
 
 const imageContainer = tw`
   flex
+  justify-center
+  flex-wrap
+  mt-10
+`;
+
+const image = tw`
+  h-100px
+  w-1/4
+  md:h-250px
+  md:w-3/7
+  md:m-3
+  rounded-3xl
+  cursor-pointer
 `;
 
 const buttonWrapper = tw`
@@ -70,10 +85,17 @@ const buttonGroup = css`
     justify-content: center;
     height: 52px;
     width: 52px;
+
     &:hover {
       background-color: rgb(209, 250, 229);
       border-radius: 50%;
     }
+
+    &:disabled {
+      background-color: transparent;
+      opacity: 0.5;
+    }
+
     svg {
       height: 28px;
       width: 28px;
@@ -108,7 +130,7 @@ const HomePresentation = ({
   handleSubmit,
   handleAddImage,
   handleImagesChange,
-  postImages,
+  uploadImages,
   fileRef,
 }: Prop) => {
   return (
@@ -118,17 +140,19 @@ const HomePresentation = ({
         <Form css={form}>
           <FormTextArea css={textArea} />
           <div css={imageContainer}>
-            {postImages.map((imgSrc, idx) => (
-              <figure key={idx}>
-                <img src={imgSrc} />
-              </figure>
+            {uploadImages.map((imgSrc, idx) => (
+              <img css={image} key={idx} src={imgSrc.url} />
             ))}
           </div>
           <div css={buttonWrapper}>
             <ButtonGroup css={buttonGroup}>
               <Tooltip message={'이미지 추가'}>
                 <FormFile css={fileInput} onChange={handleImagesChange} ref={fileRef}>
-                  <Button onClick={handleAddImage} type="button">
+                  <Button
+                    disabled={uploadImages.length >= POST_IMAGES_MAX}
+                    onClick={handleAddImage}
+                    type="button"
+                  >
                     <BiImageAdd />
                   </Button>
                 </FormFile>
