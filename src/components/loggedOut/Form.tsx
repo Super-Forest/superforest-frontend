@@ -1,13 +1,28 @@
-import React, { ChangeEvent, FormEvent, MouseEvent, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { css } from '@emotion/react';
+import { gql, useMutation } from '@apollo/client';
 import tw from 'twin.macro';
-import { checkEmailValid } from 'lib/utils';
+
 import FormInput from 'components/common/FormInput';
 import FormLabel from 'components/common/FormLabel';
 import Button from 'components/common/Button';
 import WelcomTitle from 'components/common/WelcomTitle';
 import WelcomImg from 'components/common/WelcomImg';
+import { useForm } from 'react-hook-form';
+import { loginMutation, loginMutationVariables } from '__generated__/loginMutation';
+import { authToken, isLoggedInVar } from 'apollo';
+import { saveToken } from 'lib/utils';
+
+const LOGIN = gql`
+  mutation loginMutation($loginInput: LoginInPut!) {
+    login(input: $loginInput) {
+      ok
+      error
+      token
+    }
+  }
+`;
 
 const form = css`
   display: flex;
@@ -53,54 +68,65 @@ const link = css`
   }
 `;
 
-const Form: React.FC = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [isEmailInValid, setIsEmailInValid] = useState(false);
-  const [isPasswordEmpty, setIsPasswordEmpty] = useState(false);
+interface IForm {
+  email: string;
+  password: string;
+  passwordCheck: string;
+}
 
-  const handleEmailOnChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const {
-      target: { value },
-    } = e;
-    setEmail(value);
-    if (checkEmailValid(email)) {
-      setIsEmailInValid(false);
-    } else {
-      setIsEmailInValid(true);
-    }
-  };
-  const handlePasswordOnChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const {
-      target: { value },
-    } = e;
-    setPassword(value);
-  };
-  const handleSignIn = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+const Form: React.FC = () => {
+  const { register, getValues, handleSubmit, errors } = useForm<IForm>({
+    mode: 'onChange',
+  });
+  const [loginMutation] = useMutation<loginMutation, loginMutationVariables>(LOGIN, {
+    onCompleted: (data: loginMutation) => {
+      const {
+        login: { ok, token },
+      } = data;
+
+      if (ok && token) {
+        saveToken(token, isLoggedInVar, authToken);
+      }
+    },
+    onError: () => null,
+  });
+  const handleSignIn = () => {
+    const { email, password } = getValues();
+    loginMutation({
+      variables: {
+        loginInput: {
+          email,
+          password,
+        },
+      },
+    });
   };
 
   return (
     <div>
       <WelcomTitle text={'Sign In'} />
       <WelcomImg name={'Peppa.png'} />
-      <form css={form} onSubmit={handleSignIn}>
+      <form css={form} onSubmit={handleSubmit(handleSignIn)}>
         <FormLabel css={label} htmlFor={'email'} text={'Email'} />
         <FormInput
           css={input}
-          name={'email'}
-          onChange={handleEmailOnChange}
+          name="email"
           placeholder="email@supertree.co"
+          ref={register({
+            required: 'Email is required',
+            pattern: /^[A-Za-z0-9._%+-]+@supertree.co$/,
+          })}
           type="email"
-          value={email}
         />
         <FormLabel css={label} htmlFor={'password'} text={'Password'} />
         <FormInput
           css={input}
-          name={'passowrd'}
-          onChange={handlePasswordOnChange}
+          name="password"
+          ref={register({
+            required: true,
+            minLength: 5,
+          })}
           type="password"
-          value={password}
         />
         <Button css={SignInButton} text={'Sign In'} type="submit" />
         <div css={link}>

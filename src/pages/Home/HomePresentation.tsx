@@ -1,128 +1,149 @@
-import React, { FormEventHandler } from 'react';
+import React, { FormEventHandler, MouseEvent, MouseEventHandler } from 'react';
+import { BiImageAdd } from 'react-icons/bi';
+import { FaVoteYea } from 'react-icons/fa';
 import tw from 'twin.macro';
 import { css } from '@emotion/react';
-import { BiHappy, BiImageAdd } from 'react-icons/bi';
-
 import Button from 'components/common/Button';
+import ButtonGroup from 'components/common/ButtonGroup';
 import Form from 'components/common/Form';
 import FormTextArea from 'components/common/FormTextArea';
+import Tab from 'components/loggedIn/Tab';
+import Tooltip from 'components/common/Tooltip';
+import Img from 'components/common/Img';
+import FormFile from 'components/common/FormFile';
 
 interface Prop {
   handleSubmit: FormEventHandler<HTMLFormElement>;
+  handleAddImage: MouseEventHandler<HTMLButtonElement>;
+  handleImagesChange: FormEventHandler<HTMLInputElement>;
+  postImages: string[];
+  fileRef: any;
 }
 
-const aside = css`
-  display: flex;
-  flex-direction: column;
-  flex: 0.5;
-  width: 300px;
-  min-height: 100vh;
-  margin-top: 1rem;
+const container = tw`
+  container
+  mx-auto
+  md:w-9/12
+  w-full
 `;
 
-const section = css`
-  flex: 1;
-  margin: 1rem 1rem 0 1rem;
+const form = tw`
+  flex
+  flex-col
+  items-center
+  p-10
+  pb-5
+  mt-5
+  w-full
+  bg-white
 `;
 
-const profileContainer = css`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 2rem 5rem;
-  width: 100%;
-  background-color: white;
+const textArea = tw`
+  w-full
+  h-100px
+  p-3
+  border-0
+  border-b
+  border-gray-300
+  resize-none
 `;
 
-const menuContainer = css`
-  flex: 1;
-  margin-top: 1rem;
-  background-color: white;
+const imageContainer = tw`
+  flex
 `;
 
-const profile = css`
-  height: 100px;
-  width: 100px;
-  background-color: #e3e3e3;
-  border-radius: 50%;
-`;
-
-const profileName = css`
-  margin: 1.2rem 0;
-`;
-
-const buttonStyle = css`
-  width: 200px;
-  height: 50px;
-  font-weight: bold;
-  border-radius: 1.2rem;
-  color: white;
-`;
-
-const formContainer = css`
-  display: flex;
-  flex-direction: column;
-  padding: 2rem;
-  background-color: white;
-`;
-
-const formTextArea = css`
-  width: 100%;
-  height: 80px;
-  padding: 0.8rem;
-  border-radius: 10px;
-  resize: none;
-`;
-
-const buttonContainer = css`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+const buttonWrapper = tw`
+  flex
+  items-center
+  justify-between
+  w-full
+  mt-5
 `;
 
 const buttonGroup = css`
   display: flex;
-  & .image_button,
-  .emoji_button {
-    display: flex;
+  align-items: center;
 
-    & svg {
-      font-size: 2.5rem;
+  & button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 52px;
+    width: 52px;
+    &:hover {
+      background-color: rgb(209, 250, 229);
+      border-radius: 50%;
+    }
+    svg {
+      height: 28px;
+      width: 28px;
+      color: rgb(51, 211, 153);
     }
   }
 `;
 
-const HomePresentation = ({ handleSubmit }: Prop) => {
+const fileInput = css`
+  position: absolute;
+  overflow: hidden;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+`;
+
+const submitButton = tw`
+  px-14
+  h-30px
+  rounded-3xl
+  bg-green-400
+  font-medium
+  text-white
+  text-2xl
+`;
+
+const HomePresentation = ({
+  handleSubmit,
+  handleAddImage,
+  handleImagesChange,
+  postImages,
+  fileRef,
+}: Prop) => {
   return (
-    <div css={tw`flex min-h-full`}>
-      <aside css={aside}>
-        <div css={profileContainer}>
-          <div css={profile}></div>
-          <p css={profileName}>유저 이름</p>
-          <Button css={[buttonStyle, tw`bg-green-400`]} text={'글쓰기'} type={'button'} />
-        </div>
-        <div css={menuContainer}></div>
-      </aside>
-      <section css={section}>
-        <div css={formContainer}>
-          <Form>
-            <FormTextArea css={formTextArea} value={'a'} />
-            <div css={buttonContainer}>
-              <div className="button_group" css={buttonGroup}>
-                <Button className="image_button" type="button">
-                  <BiImageAdd />
+    <>
+      <Tab />
+      <div css={container}>
+        <Form css={form}>
+          <FormTextArea css={textArea} />
+          <div css={imageContainer}>
+            {postImages.map((imgSrc, idx) => (
+              <figure key={idx}>
+                <img src={imgSrc} />
+              </figure>
+            ))}
+          </div>
+          <div css={buttonWrapper}>
+            <ButtonGroup css={buttonGroup}>
+              <Tooltip message={'이미지 추가'}>
+                <FormFile css={fileInput} onChange={handleImagesChange} ref={fileRef}>
+                  <Button onClick={handleAddImage} type="button">
+                    <BiImageAdd />
+                  </Button>
+                </FormFile>
+              </Tooltip>
+              <Tooltip message={'투표 생성'}>
+                <Button type="button">
+                  <FaVoteYea />
                 </Button>
-                <Button className="emoji_button" type="button">
-                  <BiHappy />
-                </Button>
-              </div>
-              <Button text="제출" type="submit" />
-            </div>
-          </Form>
-        </div>
-      </section>
-      <section css={aside}></section>
-    </div>
+              </Tooltip>
+            </ButtonGroup>
+            <Button css={submitButton} text={'데롱'} type="button" />
+          </div>
+        </Form>
+      </div>
+    </>
   );
 };
 

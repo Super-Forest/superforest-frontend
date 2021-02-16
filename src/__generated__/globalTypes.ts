@@ -12,6 +12,11 @@ export interface CreateAccountInPut {
   password: string;
 }
 
+export interface LoginInPut {
+  email: string;
+  password: string;
+}
+
 //==============================================================
 // END Enums and Input Objects
 //==============================================================
