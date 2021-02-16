@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useRef, useState } from 'react';
+import React, { ChangeEvent, MouseEvent, useRef, useState } from 'react';
 import { difference, map } from 'lodash';
 import { POST_IMAGES_MAX } from 'constant';
 import { getFileList } from 'lib/utils';
@@ -40,6 +40,10 @@ const HomeContainer = () => {
     }
   };
 
+  const handleRemoveImage = (e: MouseEvent<HTMLButtonElement>) => {
+    console.log(e.target);
+  };
+
   const handleSubmit = () => {
     console.log('submit');
   };
@@ -49,6 +53,7 @@ const HomeContainer = () => {
       fileRef={fileRef}
       handleAddImage={handleAddImage}
       handleImagesChange={handleImagesChange}
+      handleRemoveImage={handleRemoveImage}
       handleSubmit={handleSubmit}
       uploadImages={uploadImages}
     />

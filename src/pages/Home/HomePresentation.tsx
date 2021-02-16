@@ -1,6 +1,6 @@
 import React, { FormEventHandler, MouseEvent, MouseEventHandler } from 'react';
 import { BiImageAdd } from 'react-icons/bi';
-import { FaVoteYea } from 'react-icons/fa';
+import { FaTimesCircle, FaVoteYea } from 'react-icons/fa';
 import tw from 'twin.macro';
 import { css } from '@emotion/react';
 import Button from 'components/common/Button';
@@ -9,7 +9,6 @@ import Form from 'components/common/Form';
 import FormTextArea from 'components/common/FormTextArea';
 import Tab from 'components/loggedIn/Tab';
 import Tooltip from 'components/common/Tooltip';
-import Img from 'components/common/Img';
 import FormFile from 'components/common/FormFile';
 import { ImageInfo } from 'types/imageUpload';
 import { POST_IMAGES_MAX } from 'constant';
@@ -18,6 +17,7 @@ interface Prop {
   handleSubmit: FormEventHandler<HTMLFormElement>;
   handleAddImage: MouseEventHandler<HTMLButtonElement>;
   handleImagesChange: FormEventHandler<HTMLInputElement>;
+  handleRemoveImage: MouseEventHandler<HTMLButtonElement>;
   uploadImages: ImageInfo[];
   fileRef: any;
 }
@@ -57,12 +57,13 @@ const imageContainer = tw`
   mt-10
 `;
 
+const imageWrapper = tw`
+  flex
+`;
+
 const image = tw`
-  h-100px
-  w-1/4
-  md:h-250px
-  md:w-3/7
-  md:m-3
+  h-full
+  w-full
   rounded-3xl
   cursor-pointer
 `;
@@ -126,8 +127,44 @@ const submitButton = tw`
   text-2xl
 `;
 
+const getBackgroundImage = (src: string) => {
+  return css`
+    position: relative;
+    width: 100%;
+    height: 150px;
+    max-width: 200px;
+    margin: 10px;
+    background-image: url(${src});
+    background-repeat: no-repeat;
+    background-size: contain;
+    border-radius: 10%;
+
+    @media screen and (max-width: 640px) {
+      height: 70px;
+      width: 70px;
+      margin: 0 10px;
+    }
+
+    & button {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      top: 0;
+      left: 0;
+      & .clear__button {
+        width: inherit;
+        height: inherit;
+        border-radius: 50%;
+        background-color: white;
+        cursor: pointer;
+      }
+    }
+  `;
+};
+
 const HomePresentation = ({
   handleSubmit,
+  handleRemoveImage,
   handleAddImage,
   handleImagesChange,
   uploadImages,
@@ -140,9 +177,16 @@ const HomePresentation = ({
         <Form css={form}>
           <FormTextArea css={textArea} />
           <div css={imageContainer}>
-            {uploadImages.map((imgSrc, idx) => (
-              <img css={image} key={idx} src={imgSrc.url} />
-            ))}
+            <div css={imageWrapper}>
+              {uploadImages.map((imgSrc, idx) => (
+                <div css={getBackgroundImage(imgSrc.url)} key={idx}>
+                  <img css={image} draggable={false} src={imgSrc.url} />
+                  <Button onClick={handleRemoveImage} type="button">
+                    <FaTimesCircle className={'clear__button'} />
+                  </Button>
+                </div>
+              ))}
+            </div>
           </div>
           <div css={buttonWrapper}>
             <ButtonGroup css={buttonGroup}>
