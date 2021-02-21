@@ -41,7 +41,9 @@ const HomeContainer = () => {
   };
 
   const handleRemoveImage = (e: MouseEvent<HTMLButtonElement>) => {
-    console.log(e.target);
+    const target = e.target as HTMLButtonElement;
+    const imgUrl = target.getAttribute('aria-label');
+    setUploadImages([...uploadImages.filter((img) => img.url !== imgUrl)]);
   };
 
   const handleSubmit = () => {

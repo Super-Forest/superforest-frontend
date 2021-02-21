@@ -10,6 +10,7 @@ import FormTextArea from 'components/common/FormTextArea';
 import Tab from 'components/loggedIn/Tab';
 import Tooltip from 'components/common/Tooltip';
 import FormFile from 'components/common/FormFile';
+import Post from 'components/loggedIn/post/Post';
 import { ImageInfo } from 'types/imageUpload';
 import { POST_IMAGES_MAX } from 'constant';
 
@@ -35,7 +36,7 @@ const form = tw`
   items-center
   p-12
   py-5
-  mt-5
+  my-5
   w-full
   bg-white
 `;
@@ -151,16 +152,31 @@ const getBackgroundImage = (src: string) => {
       height: 30px;
       top: 0;
       left: 0;
+      opacity: 0.5;
+
+      &:hover {
+        opacity: 1;
+      }
+
       & .clear__button {
         width: inherit;
         height: inherit;
         border-radius: 50%;
         background-color: white;
         cursor: pointer;
+
+        & > path {
+          pointer-events: none;
+        }
       }
     }
   `;
 };
+
+const post = tw`
+  w-full
+  bg-white
+`;
 
 const HomePresentation = ({
   handleSubmit,
@@ -181,8 +197,8 @@ const HomePresentation = ({
               {uploadImages.map((imgSrc, idx) => (
                 <div css={getBackgroundImage(imgSrc.url)} key={idx}>
                   <img css={image} draggable={false} src={imgSrc.url} />
-                  <Button onClick={handleRemoveImage} type="button">
-                    <FaTimesCircle className={'clear__button'} />
+                  <Button label={imgSrc.url} onClick={handleRemoveImage} type="button">
+                    <FaTimesCircle aria-label={imgSrc.url} className={'clear__button'} />
                   </Button>
                 </div>
               ))}
@@ -210,6 +226,7 @@ const HomePresentation = ({
             <Button css={submitButton} text={'데롱'} type="button" />
           </div>
         </Form>
+        <Post css={post} />
       </div>
     </>
   );
