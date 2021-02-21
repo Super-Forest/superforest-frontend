@@ -7,7 +7,7 @@ import { capitalize } from 'lib/utils';
 
 const tabContainer = tw`
   flex
-  md:w-9/12
+  md:w-650px
   w-full
   mx-auto
   px-5

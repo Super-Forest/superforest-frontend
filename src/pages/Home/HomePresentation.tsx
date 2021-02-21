@@ -26,7 +26,7 @@ interface Prop {
 const container = tw`
   container
   mx-auto
-  md:w-9/12
+  md:w-650px
   w-full
 `;
 
