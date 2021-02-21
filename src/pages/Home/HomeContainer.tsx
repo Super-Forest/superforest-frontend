@@ -1,8 +1,11 @@
-import React, { ChangeEvent, useRef, useState } from 'react';
+import React, { ChangeEvent, MouseEvent, useRef, useState } from 'react';
+import { difference, map } from 'lodash';
+import { POST_IMAGES_MAX } from 'constant';
+import { getFileList } from 'lib/utils';
+import { ImageInfo } from 'types/imageUpload';
 import HomePresentation from './HomePresentation';
-
 const HomeContainer = () => {
-  const [postImages, setPostImages] = useState<string[]>([]);
+  const [uploadImages, setUploadImages] = useState<ImageInfo[]>([]);
   const fileRef = useRef<HTMLInputElement | null>(null);
 
   const handleAddImage = () => {
@@ -11,10 +14,36 @@ const HomeContainer = () => {
     }
   };
 
-  const handleImagesChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleImagesChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target;
     if (!files) return;
-    console.log(files);
+    if (uploadImages.length + files.length > POST_IMAGES_MAX) {
+      return;
+    }
+
+    const fileNames = Array.from(files).map(({ name }) => name);
+    const uploadedFiles = map(uploadImages, 'name');
+    const diff = difference(fileNames, uploadedFiles);
+
+    if (diff.length < fileNames.length) {
+      return;
+    }
+
+    try {
+      const fileList = await getFileList(files);
+      if (!fileList) {
+        return;
+      }
+      setUploadImages((cur) => [...cur, ...fileList]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleRemoveImage = (e: MouseEvent<HTMLButtonElement>) => {
+    const target = e.target as HTMLButtonElement;
+    const imgUrl = target.getAttribute('aria-label');
+    setUploadImages([...uploadImages.filter((img) => img.url !== imgUrl)]);
   };
 
   const handleSubmit = () => {
@@ -26,8 +55,9 @@ const HomeContainer = () => {
       fileRef={fileRef}
       handleAddImage={handleAddImage}
       handleImagesChange={handleImagesChange}
+      handleRemoveImage={handleRemoveImage}
       handleSubmit={handleSubmit}
-      postImages={postImages}
+      uploadImages={uploadImages}
     />
   );
 };

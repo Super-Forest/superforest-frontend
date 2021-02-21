@@ -1,6 +1,6 @@
 import React, { FormEventHandler, MouseEvent, MouseEventHandler } from 'react';
 import { BiImageAdd } from 'react-icons/bi';
-import { FaVoteYea } from 'react-icons/fa';
+import { FaTimesCircle, FaVoteYea } from 'react-icons/fa';
 import tw from 'twin.macro';
 import { css } from '@emotion/react';
 import Button from 'components/common/Button';
@@ -9,14 +9,17 @@ import Form from 'components/common/Form';
 import FormTextArea from 'components/common/FormTextArea';
 import Tab from 'components/loggedIn/Tab';
 import Tooltip from 'components/common/Tooltip';
-import Img from 'components/common/Img';
 import FormFile from 'components/common/FormFile';
+import Post from 'components/loggedIn/post/Post';
+import { ImageInfo } from 'types/imageUpload';
+import { POST_IMAGES_MAX } from 'constant';
 
 interface Prop {
   handleSubmit: FormEventHandler<HTMLFormElement>;
   handleAddImage: MouseEventHandler<HTMLButtonElement>;
   handleImagesChange: FormEventHandler<HTMLInputElement>;
-  postImages: string[];
+  handleRemoveImage: MouseEventHandler<HTMLButtonElement>;
+  uploadImages: ImageInfo[];
   fileRef: any;
 }
 
@@ -31,9 +34,9 @@ const form = tw`
   flex
   flex-col
   items-center
-  p-10
-  pb-5
-  mt-5
+  p-12
+  py-5
+  my-5
   w-full
   bg-white
 `;
@@ -50,6 +53,20 @@ const textArea = tw`
 
 const imageContainer = tw`
   flex
+  justify-center
+  flex-wrap
+  mt-10
+`;
+
+const imageWrapper = tw`
+  flex
+`;
+
+const image = tw`
+  h-full
+  w-full
+  rounded-3xl
+  cursor-pointer
 `;
 
 const buttonWrapper = tw`
@@ -70,10 +87,17 @@ const buttonGroup = css`
     justify-content: center;
     height: 52px;
     width: 52px;
+
     &:hover {
       background-color: rgb(209, 250, 229);
       border-radius: 50%;
     }
+
+    &:disabled {
+      background-color: transparent;
+      opacity: 0.5;
+    }
+
     svg {
       height: 28px;
       width: 28px;
@@ -104,11 +128,62 @@ const submitButton = tw`
   text-2xl
 `;
 
+const getBackgroundImage = (src: string) => {
+  return css`
+    position: relative;
+    width: 100%;
+    height: 150px;
+    max-width: 200px;
+    margin: 10px;
+    background-image: url(${src});
+    background-repeat: no-repeat;
+    background-size: contain;
+    border-radius: 10%;
+
+    @media screen and (max-width: 640px) {
+      height: 70px;
+      width: 70px;
+      margin: 0 10px;
+    }
+
+    & button {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      top: 0;
+      left: 0;
+      opacity: 0.5;
+
+      &:hover {
+        opacity: 1;
+      }
+
+      & .clear__button {
+        width: inherit;
+        height: inherit;
+        border-radius: 50%;
+        background-color: white;
+        cursor: pointer;
+
+        & > path {
+          pointer-events: none;
+        }
+      }
+    }
+  `;
+};
+
+const post = tw`
+  w-full
+  bg-white
+`;
+
 const HomePresentation = ({
   handleSubmit,
+  handleRemoveImage,
   handleAddImage,
   handleImagesChange,
-  postImages,
+  uploadImages,
   fileRef,
 }: Prop) => {
   return (
@@ -118,17 +193,26 @@ const HomePresentation = ({
         <Form css={form}>
           <FormTextArea css={textArea} />
           <div css={imageContainer}>
-            {postImages.map((imgSrc, idx) => (
-              <figure key={idx}>
-                <img src={imgSrc} />
-              </figure>
-            ))}
+            <div css={imageWrapper}>
+              {uploadImages.map((imgSrc, idx) => (
+                <div css={getBackgroundImage(imgSrc.url)} key={idx}>
+                  <img css={image} draggable={false} src={imgSrc.url} />
+                  <Button label={imgSrc.url} onClick={handleRemoveImage} type="button">
+                    <FaTimesCircle aria-label={imgSrc.url} className={'clear__button'} />
+                  </Button>
+                </div>
+              ))}
+            </div>
           </div>
           <div css={buttonWrapper}>
             <ButtonGroup css={buttonGroup}>
               <Tooltip message={'이미지 추가'}>
                 <FormFile css={fileInput} onChange={handleImagesChange} ref={fileRef}>
-                  <Button onClick={handleAddImage} type="button">
+                  <Button
+                    disabled={uploadImages.length >= POST_IMAGES_MAX}
+                    onClick={handleAddImage}
+                    type="button"
+                  >
                     <BiImageAdd />
                   </Button>
                 </FormFile>
@@ -142,6 +226,7 @@ const HomePresentation = ({
             <Button css={submitButton} text={'데롱'} type="button" />
           </div>
         </Form>
+        <Post css={post} />
       </div>
     </>
   );
