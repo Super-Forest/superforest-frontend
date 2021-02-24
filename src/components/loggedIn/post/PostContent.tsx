@@ -1,4 +1,5 @@
 import React from 'react';
+import { css } from '@emotion/react';
 import tw from 'twin.macro';
 
 const imgContainer = tw`
@@ -22,13 +23,16 @@ const image = tw`
 
 const textContainer = tw`
   mx-5
-  pb-5
 `;
 
 const text = tw`
   text-2xl
   leading-relaxed
   tracking-tight
+`;
+
+const divider = css`
+  opacity: 0.35;
 `;
 
 const PostContent = () => {
@@ -44,6 +48,7 @@ const PostContent = () => {
       </div>
       <div css={textContainer}>
         <p css={text}>{'일요일은 파자마 입은채로 뒹굴뒹굴이 최고야 🛌 (나만 그래? 😏)'}</p>
+        <hr css={divider} />
       </div>
     </section>
   );

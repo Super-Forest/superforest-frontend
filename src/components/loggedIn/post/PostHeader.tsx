@@ -5,7 +5,6 @@ const container = tw`
   flex
   items-center
   py-4
-  mb-8
 `;
 
 const headerImageWrapper = tw`
